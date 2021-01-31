@@ -1,0 +1,4 @@
+Bundle-Name: user-registration-portlet
+Bundle-SymbolicName: user.registration.portlet
+Bundle-Version: 1.0.0
+Export-Package: user.registration.portlet.constants

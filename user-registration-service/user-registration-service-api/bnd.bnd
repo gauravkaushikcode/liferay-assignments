@@ -1,0 +1,10 @@
+Bundle-Name: user-registration-service-api
+Bundle-SymbolicName: user.registration.service.api
+Bundle-Version: 1.0.0
+Export-Package:\
+	user.registration.service.exception,\
+	user.registration.service.model,\
+	user.registration.service.service,\
+	user.registration.service.service.persistence
+-check: EXPORTS
+-includeresource: META-INF/service.xml=../user-registration-service-service/service.xml

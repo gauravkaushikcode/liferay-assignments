@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="user.registration.service.model.UserRegistration">
+		<field name="uuid" type="String" />
+		<field name="userRegistrationId" type="long" />
+		<field name="name" type="String" />
+		<field name="surname" type="String" />
+		<field name="birthdate" type="Date" />
+		<field name="email" type="String" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="field1" type="String" />
+		<field name="field2" type="boolean" />
+		<field name="field3" type="int" />
+		<field name="field4" type="Date" />
+		<field name="field5" type="String" />
+	</model>
+</model-hints>
