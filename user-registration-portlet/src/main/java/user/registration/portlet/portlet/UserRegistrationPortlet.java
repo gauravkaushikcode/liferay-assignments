@@ -58,17 +58,30 @@ public class UserRegistrationPortlet extends MVCPortlet {
 	
 	private Log log = LogFactoryUtil.getLog(this.getClass().getName());
 	private EmailUtil emailUtil = null;
+	private DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 	
 	public void addUserDetails(ActionRequest request, ActionResponse response) throws PortalException {
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(UserRegistration.class.getName(), request);
-
+		
+		try{
+            CaptchaUtil.check(request);
+            log.info("CAPTCHA verification successful.");
+        }catch(Exception exception) {
+            if(exception instanceof CaptchaTextException) {
+                SessionErrors.add(request, exception.getClass(), exception);
+                log.error("CAPTCHA verification failed.");
+                response.setRenderParameter("exception", "CAPTCHA verification failed");
+				response.setRenderParameter("mvcPath", "/user_registration.jsp");
+            }
+            return;
+        }
+		
 		String userName = ParamUtil.getString(request, "name");
 		String surName = ParamUtil.getString(request, "surname");
-		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		Date birthDate = ParamUtil.getDate(serviceContext, "birthdayfield", formatter);
-		System.out.println(birthDate + " "+ serviceContext);
 		String email = ParamUtil.getString(request, "email");
+		
 			try {
 				
 				long userRegistrationId = CounterLocalServiceUtil.increment();
@@ -83,11 +96,8 @@ public class UserRegistrationPortlet extends MVCPortlet {
 				
 				response.setRenderParameter("mvcPath", "/view.jsp");
 			} catch (Exception e) {
-				System.out.println(e);
-
 				PortalUtil.copyRequestParameters(request, response);
-
-				response.setRenderParameter("mvcPath", "/view.jsp");
+				response.setRenderParameter("mvcPath", "/user_registration.jsp");
 			}
 	}
 	@Override
@@ -97,21 +107,6 @@ public class UserRegistrationPortlet extends MVCPortlet {
 			super.render(renderRequest, renderResponse);
 	}
 	
-	@ProcessAction(name = "basicFormDataWithCaptcha")
-    public void basicFormDataWithCaptcha(ActionRequest actionRequest, ActionResponse actionResponse)
-        throws IOException, PortletException {
- 
-        try{
-            CaptchaUtil.check(actionRequest);
-            log.info("CAPTCHA verification successful.");
-        }catch(Exception exception) {
-            if(exception instanceof CaptchaTextException) {
-                SessionErrors.add(actionRequest, exception.getClass(), exception);
-                log.error("CAPTCHA verification failed.");
-            }
-        }
-    }
- 
     @Override
     public void serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
         throws  IOException, PortletException {

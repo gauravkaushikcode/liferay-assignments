@@ -6,7 +6,8 @@
 	<div class="col-md-6">
 		<div class="form-group">
 			<p>
-				<b>User Registration Successfull with Registration Id <%=userRegistrationId%></b>
+				<b>User Registration Successfull with Registration Id <%=userRegistrationId%>
+				on <%= new Date().toLocaleString() %></b>
 			</p>
 		</div>
 	</div>

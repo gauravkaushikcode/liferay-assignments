@@ -1,11 +1,5 @@
 <%@include file="/init.jsp"%>
 
-<%
-	long userRegistrationId = ParamUtil.getLong(renderRequest, "userRegistrationId");
-	System.out.println(new Date());
-
-%>
-
 <portlet:renderURL var="viewURL">
 	<portlet:param name="mvcPath" value="/view.jsp"></portlet:param>
 </portlet:renderURL>
@@ -15,7 +9,7 @@
 
 <div class="container">
 	<h2>User Registration</h2>
-
+	<liferay-ui:error/>
 	<aui:form action="<%=addUserDetailsURL%>"
 		name="user_registration_form">
 
@@ -28,6 +22,7 @@
 					<div class="form-group">
 						<aui:input name="name" label="First Name">
 							<aui:validator name="required" />
+							<aui:validator name="alpha" />
 						</aui:input>
 					</div>
 				</div>
@@ -35,6 +30,7 @@
 					<div class="form-group">
 						<aui:input name="surname" label="Surname">
 							<aui:validator name="required" />
+							<aui:validator name="alpha" />
 						</aui:input>
 					</div>
 				</div>
@@ -44,6 +40,7 @@
 						<liferay-ui:input-date name="birthdayfield" yearParam="birthYear"
 							yearValue="1984" monthParam="birthMonth" monthValue="01"
 							dayParam="birthDate" dayValue="17" required="true">
+							<aui:validator name="date" />
 						</liferay-ui:input-date>
 						</aui:field-wrapper>
 					</div>
