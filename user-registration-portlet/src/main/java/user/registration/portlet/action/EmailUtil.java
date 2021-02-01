@@ -29,7 +29,7 @@ public class EmailUtil extends MVCPortlet {
         String encodedToken = Base64.encode((timeStamp+"email"+email+"email_"+themeDisplay.getUserId()).getBytes());
         if (sendEmail(email,encodedToken, themeDisplay, userRegistrationId)) {
             SessionMessages.add(actionRequest, "request_processed",
-                    "You have sent verification to \"" + email
+                    "You have sent email to \"" + email
                             + "\" successfully.");
         } else// error
         {
